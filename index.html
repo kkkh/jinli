@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>山西晋中理工学院 · 全景数据库 V9</title>
+<style>
+:root{
+  --bg:#f0f2f5;--bg2:#e8eaef;--card:#ffffff;--card2:#f8f9fb;
+  --text:#1a1a2e;--text2:#374151;--sub:#6b7280;--sub2:#9ca3af;
+  --sep:rgba(0,0,0,.06);--sep2:rgba(0,0,0,.04);
+  --accent:#e63946;--accent2:#06d6a0;--accent3:#0ea5e9;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);--shadow:0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:0 4px 20px rgba(0,0,0,.08);--shadow-lg:0 12px 40px rgba(0,0,0,.12);
+  --radius:17px;--radius-sm:13px;--glass:rgba(255,255,255,.72);
+  --ease:0.28s cubic-bezier(0.22,0.61,0.36,1);
+  /* ═══ HERO LIGHT MODE ═══ */
+  --hero-bg:linear-gradient(155deg,#f8f9fc 0%,#e8ecf4 20%,#dfe6f0 40%,#eef1f7 60%,#f4f6fa 80%,#e2e8f2 100%);
+  --hero-text:#1a1a2e;--hero-sub:rgba(0,0,0,.4);
+  --hero-glow1:rgba(230,57,70,.12);--hero-glow2:rgba(6,214,160,.1);
+  --hero-glow3:rgba(69,123,157,.08);--hero-glow4:rgba(114,9,183,.06);
+  --hero-glow5:rgba(244,162,97,.05);
+  --hero-stat-bg:rgba(0,0,0,.02);--hero-stat-border:rgba(0,0,0,.04);
+  --hero-badge-bg:rgba(0,0,0,.04);--hero-badge-border:rgba(0,0,0,.06);
+  --hero-theme-bg:rgba(0,0,0,.04);--hero-theme-border:rgba(0,0,0,.08);
+  --hero-theme-shadow:0 0 16px rgba(230,57,70,.12);
+  --hero-dot-glow:0 0 8px rgba(6,214,160,.5);
+  --hero-name-grad:linear-gradient(135deg,#1a1a2e 0%,#374151 40%,#4b5563 100%);
+  --hero-stat-num:linear-gradient(135deg,#e63946,#06d6a0);
+  --hero-particle-odd:rgba(230,57,70,.12);
+  --hero-particle-3n:rgba(6,214,160,.1);
+  --hero-particle-3n1:rgba(69,123,157,.08);
+  /* Components */
+  --tag-bg:var(--card);--tag-text:var(--sub);--tag-border:var(--sep);
+  --chip-on-bg:var(--accent);--chip-on-text:#fff;
+  --li-arrow:#c7c7cc;--sheet-handle:#d2d2d7;
+  --mark-bg:rgba(250,204,21,.35);--mark-text:var(--text);
+  --btt-bg:var(--card);--btt-color:var(--sub);
+  --sbox-pl:#9ca3af;--sbox-si-op:.25;
+  --card-cd-op:.5;--empty-op:.2;
+  --rank-strip-mt:-10px;
+  --sheet-tag-bg:rgba(128,128,128,.08);
+  --overlay-bg:rgba(0,0,0,.35);
+  --search-wrap-shadow:0 1px 8px rgba(0,0,0,.04);
+  --clr-bg:rgba(128,128,128,.12);
+  --focus-ring:rgba(230,57,70,.06);
+  --tc-shadow:0 1px 2px rgba(0,0,0,.02);
+  --tc-on-shadow:0 3px 12px rgba(230,57,70,.28);
+  --sdv-grad:linear-gradient(135deg,var(--accent),var(--accent2));
+  --scroll-progress:linear-gradient(90deg,#e63946,#06d6a0,#0ea5e9);
+}
+
+body.dark{
+  --bg:#0d1117;--bg2:#111820;--card:#161b22;--card2:#1a2029;
+  --text:#e6edf3;--text2:#c9d1d9;--sub:#8b949e;--sub2:#6e7681;
+  --sep:rgba(255,255,255,.06);--sep2:rgba(255,255,255,.03);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.25);--shadow:0 2px 8px rgba(0,0,0,.35);
+  --shadow-md:0 4px 20px rgba(0,0,0,.45);--shadow-lg:0 12px 40px rgba(0,0,0,.5);
+  --glass:rgba(22,27,34,.72);
+  --accent:#f87171;--accent2:#34d399;
+  /* ═══ HERO DARK MODE ═══ */
+  --hero-bg:linear-gradient(155deg,#0a0a14 0%,#0f1123 20%,#12182b 40%,#0d1525 60%,#0a0f1a 80%,#0a0a14 100%);
+  --hero-text:#e6edf3;--hero-sub:rgba(255,255,255,.3);
+  --hero-glow1:rgba(230,57,70,.35);--hero-glow2:rgba(6,214,160,.25);
+  --hero-glow3:rgba(69,123,157,.15);--hero-glow4:rgba(114,9,183,.18);
+  --hero-glow5:rgba(244,162,97,.1);
+  --hero-stat-bg:rgba(255,255,255,.03);--hero-stat-border:rgba(255,255,255,.04);
+  --hero-badge-bg:rgba(255,255,255,.08);--hero-badge-border:rgba(255,255,255,.1);
+  --hero-theme-bg:rgba(255,255,255,.08);--hero-theme-border:rgba(255,255,255,.12);
+  --hero-theme-shadow:0 0 20px rgba(248,113,113,.2);
+  --hero-dot-glow:0 0 12px rgba(6,214,160,.7);
+  --hero-name-grad:linear-gradient(135deg,#ffffff 0%,#d1d5db 35%,#9ca3af 70%,#e5e7eb 100%);
+  --hero-stat-num:linear-gradient(135deg,#34d399,#38bdf8);
+  --hero-particle-odd:rgba(52,211,153,.3);
+  --hero-particle-3n:rgba(248,113,113,.25);
+  --hero-particle-3n1:rgba(255,255,255,.2);
+  /* Components */
+  --tag-bg:var(--card);--tag-text:var(--sub);--tag-border:var(--sep);
+  --chip-on-bg:var(--accent);--chip-on-text:#fff;
+  --li-arrow:#484f58;--sheet-handle:#30363d;
+  --mark-bg:rgba(250,204,21,.25);--mark-text:var(--text);
+  --btt-bg:var(--card);--btt-color:var(--sub);
+  --sbox-pl:#484f58;--sbox-si-op:.35;
+  --card-cd-op:.65;--empty-op:.15;
+  --rank-strip-mt:-10px;
+  --sheet-tag-bg:rgba(255,255,255,.06);
+  --overlay-bg:rgba(0,0,0,.55);
+  --search-wrap-shadow:0 1px 8px rgba(0,0,0,.2);
+  --clr-bg:rgba(255,255,255,.08);
+  --focus-ring:rgba(248,113,113,.2);
+  --tc-shadow:0 1px 2px rgba(0,0,0,.15);
+  --tc-on-shadow:0 4px 16px rgba(248,113,113,.4);
+  --sdv-grad:linear-gradient(135deg,#f87171,#34d399);
+  --scroll-progress:linear-gradient(90deg,#f87171,#34d399,#38bdf8);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
+  padding-bottom:64px;min-height:100vh;transition:background .4s,color .4s;
+  -webkit-tap-highlight-color:transparent;
+}
+::-webkit-scrollbar{width:0}
+
+/* ═══ SCROLL PROGRESS ═══ */
+.scroll-progress{position:fixed;top:0;left:0;height:2.5px;background:var(--scroll-progress);z-index:999;transition:width .08s linear;border-radius:0 2px 2px 0}
+
+/* ═══ HERO ═══ */
+.hero{
+  position:relative;background:var(--hero-bg);padding:42px 16px 24px;overflow:hidden;color:var(--hero-text);
+  transition:background .5s ease,color .4s ease;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 30%,var(--hero-glow1),transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 15%,var(--hero-glow2),transparent 55%),
+    radial-gradient(ellipse 50% 55% at 50% 70%,var(--hero-glow4),transparent 55%),
+    radial-gradient(ellipse 70% 35% at 40% 45%,var(--hero-glow3),transparent 60%),
+    radial-gradient(ellipse 45% 30% at 65% 60%,var(--hero-glow5),transparent 50%);
+  animation:heroGlow 10s ease-in-out infinite alternate;transition:background .5s ease;
+}
+@keyframes heroGlow{0%{opacity:.7;transform:scale(1)}100%{opacity:1;transform:scale(1.04)}}
+.hero .particles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hero .particle{position:absolute;border-radius:50%;animation:float 6s ease-in-out infinite}
+.hero .particle:nth-child(odd){background:radial-gradient(circle,var(--hero-particle-odd),transparent)}
+.hero .particle:nth-child(3n){background:radial-gradient(circle,var(--hero-particle-3n),transparent)}
+.hero .particle:nth-child(3n+1){background:radial-gradient(circle,var(--hero-particle-3n1),transparent)}
+@keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0}20%{opacity:.6}50%{opacity:.8}80%{opacity:.3}}
+.hero .hz{position:relative;z-index:2}
+
+/* Hero top bar */
+.hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;animation:fadeUp .6s ease forwards}
+.hero .hb{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--hero-badge-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  padding:7px 14px;border-radius:20px;font-size:10px;font-weight:600;
+  letter-spacing:.4px;border:1px solid var(--hero-badge-border);transition:all .4s ease;
+}
+.hero .hb .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 2s ease-in-out infinite;box-shadow:var(--hero-dot-glow);transition:all .4s ease}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.5)}}
+
+/* Theme toggle - PROMINENT */
+.theme-btn{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--hero-theme-bg);border:2px solid var(--hero-theme-border);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:19px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:all .3s ease;flex-shrink:0;box-shadow:var(--hero-theme-shadow);
+  position:relative;
+}
+.theme-btn::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;transition:all .3s ease}
+.theme-btn:active{transform:scale(.82);box-shadow:0 0 28px rgba(230,57,70,.3)}
+.theme-btn:active::after{border-color:var(--accent)}
+
+.hero h1{
+  font-size:33px;font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:2px;
+  background:var(--hero-name-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeUp .6s .05s ease forwards;opacity:0;transition:background .4s ease;
+}
+.hero .en{font-size:10px;color:var(--hero-sub);font-weight:500;letter-spacing:.8px;margin-bottom:18px;text-transform:uppercase;animation:fadeUp .6s .1s ease forwards;opacity:0;transition:color .4s ease}
+
+/* Hero stats 4-col grid */
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;animation:fadeUp .6s .15s ease forwards;opacity:0}
+.hero-stat{
+  background:var(--hero-stat-bg);border-radius:13px;padding:9px 5px;text-align:center;
+  border:1px solid var(--hero-stat-border);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:all .3s ease;
+}
+.hero-stat:active{transform:scale(.93);background:rgba(128,128,128,.1)}
+.hero-stat .num{font-size:18px;font-weight:800;background:var(--hero-stat-num);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;transition:all .4s ease}
+.hero-stat .lbl{font-size:8px;color:var(--hero-sub);margin-top:2px;line-height:1.1;transition:color .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ RANKING ═══ */
+.rank-strip{display:flex;gap:7px;padding:10px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:var(--rank-strip-mt)}
+.rank-strip::-webkit-scrollbar{display:none}
+.rk{flex-shrink:0;display:flex;align-items:center;gap:8px;background:var(--card);border-radius:13px;padding:9px 13px;box-shadow:var(--shadow-sm);border:1px solid var(--sep);transition:all .25s ease}
+.rk:active{transform:scale(.95);box-shadow:var(--shadow)}
+.rk .ri{font-size:22px;line-height:1}
+.rk .rv{font-size:12px;font-weight:800;color:var(--text);white-space:nowrap}
+.rk .rl{font-size:9px;color:var(--sub);white-space:nowrap}
+
+/* ═══ QUICK ═══ */
+.quick-row{display:flex;gap:6px;padding:6px 14px 2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scrollbar-width:none}
+.quick-row::-webkit-scrollbar{display:none}
+.qc{flex-shrink:0;scroll-snap-align:start;background:var(--card);border-radius:var(--radius-sm);padding:12px 14px;box-shadow:var(--shadow-sm);min-width:115px;text-align:center;transition:all .25s ease;border:1px solid var(--sep)}
+.qc:active{transform:scale(.92)}
+.qc .qi{font-size:24px;line-height:1;margin-bottom:4px}
+.qc .qv{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+.qc .ql{font-size:9px;color:var(--sub);margin-top:2px}
+
+/* ═══ STATS DASHBOARD ═══ */
+.stats-dash{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 14px 14px}
+.stats-dash .sd{background:var(--card);border-radius:var(--radius-sm);padding:12px 8px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--sep);transition:all .25s ease}
+.stats-dash .sd:active{transform:scale(.94)}
+.sd .sdv{font-size:19px;font-weight:900;line-height:1;background:var(--sdv-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sd .sdl{font-size:9px;color:var(--sub);margin-top:4px;font-weight:600}
+
+/* ═══ SEARCH ═══ */
+.search-wrap{position:sticky;top:0;z-index:100;padding:10px 14px;background:var(--glass);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid transparent;transition:all .35s}
+.search-wrap.scrolled{border-bottom-color:var(--sep);box-shadow:var(--search-wrap-shadow)}
+.sbox{display:flex;align-items:center;gap:9px;background:var(--card);border-radius:14px;padding:11px 14px;box-shadow:var(--shadow-sm);border:1.5px solid var(--sep);transition:all .3s ease}
+.sbox:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--focus-ring)}
+.sbox .si{font-size:15px;flex-shrink:0;opacity:var(--sbox-si-op);transition:opacity .4s ease}
+.sbox input{flex:1;border:none;background:transparent;font-size:15px;color:var(--text);outline:none;font-family:inherit;min-width:0}
+.sbox input::placeholder{color:var(--sbox-pl);transition:color .4s ease}
+.sbox .sb{font-size:11px;color:var(--sub);flex-shrink:0;display:none;font-weight:600}
+.sbox .clr{display:none;width:22px;height:22px;border-radius:50%;background:var(--clr-bg);align-items:center;justify-content:center;font-size:11px;cursor:pointer;flex-shrink:0;color:var(--sub);font-weight:700;transition:all .15s}
+.sbox .clr.show{display:flex}
+.sbox .clr:active{background:rgba(128,128,128,.2);transform:scale(.85)}
+
+/* ═══ TAGS ═══ */
+.tag-row{display:flex;flex-wrap:nowrap;gap:5px;padding:6px 14px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tag-row::-webkit-scrollbar{display:none}
+.tc{flex-shrink:0;font-size:10px;font-weight:600;padding:6px 12px;border-radius:13px;background:var(--tag-bg);color:var(--tag-text);cursor:pointer;border:1px solid var(--tag-border);transition:all .18s ease;white-space:nowrap;box-shadow:var(--tc-shadow)}
+.tc:active,.tc.on{background:var(--chip-on-bg);color:var(--chip-on-text);border-color:var(--chip-on-bg);box-shadow:var(--tc-on-shadow);transform:scale(.94)}
+
+/* ═══ GRID ═══ */
+#catGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 14px 22px}
+#catGrid.hidden{display:none}
+.cat-card{
+  background:var(--card);border-radius:var(--radius);padding:15px 13px;cursor:pointer;
+  box-shadow:var(--shadow-sm);transition:all .25s ease;position:relative;overflow:hidden;
+  min-height:102px;display:flex;flex-direction:column;gap:7px;border:1px solid var(--sep);
+  -webkit-tap-highlight-color:transparent
+}
+.cat-card:active{transform:scale(.95);box-shadow:var(--shadow-md)}
+.cat-card .cbar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:17px 17px 0 0}
+.cat-card .ci{font-size:28px;line-height:1;margin-top:3px;transition:transform .35s ease}
+.cat-card:active .ci{transform:scale(1.2)}
+.cat-card .cn{font-size:13px;font-weight:700;color:var(--text);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cat-card .cc{font-size:10px;color:var(--sub);font-weight:600;letter-spacing:.2px}
+.cat-card .cd{font-size:10px;color:var(--sub);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;opacity:var(--card-cd-op)}
+
+/* ═══ LIST ═══ */
+#listView{display:none;padding:4px 14px 22px}
+#listView.show{display:block}
+.li{display:flex;align-items:center;gap:12px;padding:14px 13px;margin-bottom:5px;background:var(--card);border-radius:var(--radius-sm);cursor:pointer;box-shadow:var(--shadow-sm);transition:all .25s ease;border:1px solid var(--sep)}
+.li:active{transform:scale(.97);box-shadow:var(--shadow)}
+.li .ld{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.li .lii{flex:1;min-width:0}
+.li .lii .lt{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+.li .lii .ldd{font-size:12px;color:var(--sub);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li .lii .lp{font-size:10px;color:var(--sub2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li .la{color:var(--li-arrow);font-size:14px;flex-shrink:0;font-weight:700}
+
+/* ═══ CRUMB ═══ */
+#crumb{display:none;padding:6px 14px 0;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;font-size:12px;gap:2px;scrollbar-width:none}
+#crumb::-webkit-scrollbar{display:none}
+#crumb.show{display:flex;flex-wrap:wrap;align-items:center}
+#crumb span{color:var(--accent);cursor:pointer;font-weight:600;white-space:nowrap}
+#crumb .sep{color:var(--sub2);cursor:default;margin:0 3px;font-weight:400}
+#backBtn{display:none;align-items:center;gap:4px;font-size:13px;color:var(--accent);font-weight:700;padding:6px 14px 4px;cursor:pointer}
+#backBtn.show{display:flex}
+
+/* ═══ EMPTY ═══ */
+#empty{display:none;text-align:center;padding:72px 24px;color:var(--sub)}
+#empty.show{display:block}
+#empty .ei{font-size:56px;margin-bottom:14px;opacity:var(--empty-op)}
+#empty .et{font-size:14px;font-weight:600}
+
+/* ═══ OVERLAY & SHEET ═══ */
+#overlay{display:none;position:fixed;inset:0;z-index:200;background:var(--overlay-bg);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .4s ease}
+#overlay.show{display:block}
+#sheet{position:fixed;bottom:0;left:0;right:0;z-index:201;background:var(--card);border-radius:26px 26px 0 0;padding:18px 20px 40px;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,.72,0,1);max-height:76vh;overflow-y:auto;box-shadow:0 -6px 40px rgba(0,0,0,.14)}
+#sheet.show{transform:translateY(0)}
+#sheet .sh{width:36px;height:4px;border-radius:2px;margin:0 auto 16px;background:var(--sheet-handle);transition:background .4s ease}
+#sheet .sbar{height:3px;border-radius:2px;margin-bottom:14px;width:100%}
+#sheet .sn{font-size:19px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px;line-height:1.3;color:var(--text)}
+#sheet .st{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:10px;margin-bottom:12px;background:var(--sheet-tag-bg);color:var(--sub);letter-spacing:.2px;transition:all .4s ease}
+#sheet .sd{font-size:14px;color:var(--sub);line-height:1.8;white-space:pre-wrap}
+
+/* ═══ FOOTER ═══ */
+#bottomBar{text-align:center;padding:10px;font-size:10px;color:var(--sub2);position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--sep);font-weight:600;z-index:50;letter-spacing:.3px;transition:all .4s ease}
+
+/* ═══ BACK TO TOP ═══ */
+#btt{position:fixed;bottom:56px;right:14px;z-index:99;width:40px;height:40px;border-radius:50%;background:var(--btt-bg);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px) scale(.8);pointer-events:none;transition:all .3s ease;border:1px solid var(--sep);font-size:16px;color:var(--btt-color)}
+#btt.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+#btt:active{transform:scale(.85)}
+
+mark{background:var(--mark-bg);color:var(--mark-text);border-radius:2px;padding:0 2px;font-weight:600}
+.anim-in{animation:fadeUp .42s ease forwards}
+
+@media(min-width:768px){#catGrid{grid-template-columns:repeat(3,1fr);padding:10px 24px 22px}.hero{padding:56px 32px 40px}.rank-strip,.quick-row,.tag-row,.stats-dash,.search-wrap{padding-left:24px;padding-right:24px}.hero-stats{grid-template-columns:repeat(8,1fr)}}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="hero">
+  <div class="particles" id="particles"></div>
+  <div class="hz">
+    <div class="hero-top">
+      <div class="hb"><span class="dot"></span>民办全日制普通本科 · 2021转设</div>
+      <div class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="切换深浅色模式">🌙</div>
+    </div>
+    <h1>山西晋中理工学院</h1>
+    <div class="en">Shanxi Jinzhong Institute of Technology</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">44</div><div class="lbl">本科专业</div></div>
+      <div class="hero-stat"><div class="num">10</div><div class="lbl">教学机构</div></div>
+      <div class="hero-stat"><div class="num">16,945</div><div class="lbl">在校学生</div></div>
+      <div class="hero-stat"><div class="num">1000+</div><div class="lbl">教师</div></div>
+      <div class="hero-stat"><div class="num">1000+</div><div class="lbl">亩校园</div></div>
+      <div class="hero-stat"><div class="num">87</div><div class="lbl">实验室</div></div>
+      <div class="hero-stat"><div class="num">120+</div><div class="lbl">实习基地</div></div>
+      <div class="hero-stat"><div class="num">1070</div><div class="lbl">竞赛获奖</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="rank-strip">
+  <div class="rk"><div class="ri">🥇</div><div><div class="rv">山西省民办大学第1名</div><div class="rl">校友会2025</div></div></div>
+  <div class="rk"><div class="ri">🏅</div><div><div class="rv">全国理工类民办第53</div><div class="rl">校友会2025</div></div></div>
+  <div class="rk"><div class="ri">🏆</div><div><div class="rv">中国应用型大学</div><div class="rl">校友会分类</div></div></div>
+  <div class="rk"><div class="ri">⭐</div><div><div class="rv">电子与计算机工程全国第9</div><div class="rl">软科2025</div></div></div>
+  <div class="rk"><div class="ri">🌟</div><div><div class="rv">虚拟现实技术全国第18</div><div class="rl">软科2025</div></div></div>
+  <div class="rk"><div class="ri">💎</div><div><div class="rv">互联网金融全国第32</div><div class="rl">软科2025</div></div></div>
+</div>
+
+<div class="quick-row">
+  <div class="qc"><div class="qi">📍</div><div class="qv">晋中市榆次区</div><div class="ql">毗邻晋中高铁站</div></div>
+  <div class="qc"><div class="qi">📅</div><div class="qv">2002年创办</div><div class="ql">2021年转设</div></div>
+  <div class="qc"><div class="qi">🎯</div><div class="qv">谨信博学</div><div class="ql">经世致用</div></div>
+  <div class="qc"><div class="qi">🎂</div><div class="qv">10月9日</div><div class="ql">校庆纪念日</div></div>
+  <div class="qc"><div class="qi">🏫</div><div class="qv">民办本科</div><div class="ql">山西省教育厅</div></div>
+  <div class="qc"><div class="qi">🌐</div><div class="qv">阳光留学</div><div class="ql">教育部基地</div></div>
+  <div class="qc"><div class="qi">🏥</div><div class="qv">全国健康学校</div><div class="ql">2023首批</div></div>
+</div>
+
+<div class="stats-dash">
+  <div class="sd"><div class="sdv">26</div><div class="sdl">数据维度</div></div>
+  <div class="sd"><div class="sdv">547</div><div class="sdl">信息节点</div></div>
+  <div class="sd"><div class="sdv">79%</div><div class="sdl">就业率</div></div>
+  <div class="sd"><div class="sdv">3%</div><div class="sdl">考研率</div></div>
+  <div class="sd"><div class="sdv">300+</div><div class="sdl">高级职称</div></div>
+  <div class="sd"><div class="sdv">166</div><div class="sdl">科研论文</div></div>
+</div>
+
+<div class="search-wrap" id="searchWrap">
+  <div class="sbox">
+    <span class="si">🔍</span>
+    <input type="text" id="search" placeholder="搜索547个节点…" autocomplete="off">
+    <span class="clr" id="clearBtn" onclick="clearSearch()">✕</span>
+    <span class="sb" id="searchBadge"></span>
+  </div>
+</div>
+
+<div class="tag-row" id="tagRow"></div>
+<div id="crumb"></div>
+<div id="backBtn">← 返回全部维度</div>
+<div id="catGrid"></div>
+<div id="listView"></div>
+<div id="empty"><div class="ei">📭</div><div class="et">没有找到匹配的节点</div></div>
+<div id="bottomBar">山西晋中理工学院 · 全景数据库 V9 · 26维度 · 547节点</div>
+<div id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<div id="overlay" onclick="closeSheet()"></div>
+<div id="sheet">
+  <div class="sh"></div>
+  <div class="sbar" id="sBar"></div>
+  <div class="sn" id="sName"></div>
+  <div class="st" id="sTag"></div>
+  <div class="sd" id="sDesc"></div>
+</div>
+
+<script>
+(function(){var p=document.getElementById('particles');if(!p)return;var h='';for(var i=0;i<20;i++){var s=2+Math.random()*5;h+='<div class="particle" style="width:'+s+'px;height:'+s+'px;left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;animation-delay:'+(Math.random()*6)+'s;animation-duration:'+(4+Math.random()*8)+'s"></div>'}p.innerHTML=h})();
+
+function toggleTheme(){var b=document.body;b.classList.toggle('dark');var t=document.getElementById('themeBtn');t.textContent=b.classList.contains('dark')?'☀️':'🌙';try{localStorage.setItem('sjit-v9-theme',b.classList.contains('dark')?'dark':'light')}catch(e){}}
+(function(){try{if(localStorage.getItem('sjit-v9-theme')==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').textContent='☀️'}}catch(e){}})();
+
+window.addEventListener('scroll',function(){var st=document.documentElement.scrollTop||document.body.scrollTop;var sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;var pct=sh>0?Math.min(100,(st/sh)*100):0;document.getElementById('scrollProgress').style.width=pct+'%';document.getElementById('searchWrap').classList.toggle('scrolled',st>5);document.getElementById('btt').classList.toggle('show',st>300)});
+
+const DATA=[
+{name:"🏛️ 学校概况",color:"#e63946",desc:"基本信息总览 · 25个节点",children:[{name:"全称",detail:"山西晋中理工学院",color:"#e63946"},{name:"英文名",detail:"Shanxi Jinzhong Institute of Technology",color:"#e63946"},{name:"英文缩写",detail:"SJIT",color:"#e63946"},{name:"简称",detail:"山西理工",color:"#e63946"},{name:"创办时间",detail:"2002年（前身华北工学院信息商务学院）",color:"#e63946"},{name:"转设时间",detail:"2021年2月2日教育部批准转设为独立民办本科院校",color:"#e63946"},{name:"揭牌日期",detail:"2021年4月24日正式揭牌",color:"#e63946"},{name:"办学性质",detail:"民办高校",color:"#e63946"},{name:"学校类别",detail:"理工类",color:"#e63946"},{name:"学校特色",detail:"全日制普通本科高校 · 教育部阳光留学示范基地",color:"#e63946"},{name:"主管部门",detail:"山西省教育厅",color:"#e63946"},{name:"所属企业",detail:"山西大任国际教育交流有限公司",color:"#e63946"},{name:"所在地",detail:"山西省晋中市榆次区（毗邻晋中高铁站）",color:"#e63946"},{name:"官方网址",detail:"www.sxjzit.edu.cn",color:"#e63946"},{name:"招生代码",detail:"国标代码：13538",color:"#e63946"},{name:"占地面积",detail:"1000余亩",color:"#e63946"},{name:"建筑面积",detail:"30余万平方米",color:"#e63946"},{name:"在校生",detail:"全日制在校生16,945名",color:"#e63946"},{name:"校庆日",detail:"10月9日",color:"#e63946"},{name:"学校层次",detail:"全日制本科（二本批次招生）",color:"#e63946"},{name:"学历层次",detail:"全日制本科（暂无硕士/博士授予权）",color:"#e63946"},{name:"董事长",detail:"刘耀国",color:"#e63946"},{name:"办学定位",detail:"应用型本科高校，以工学为主，工/管/文/法/艺/经多学科协调发展",color:"#e63946"},{name:"阳光留学",detail:"教育部阳光留学示范基地",color:"#e63946"},{name:"校园网络",detail:"校园网全覆盖，有线/无线网络接入",color:"#e63946"}]},
+{name:"📜 历史沿革",color:"#d4a373",desc:"2002-2026完整发展历程 · 23个节点",children:[{name:"2002年",detail:"华北工学院成立信息商务学院（普通二级学院）",color:"#d4a373"},{name:"2003年4月",detail:"教育部确认正式成立华北工学院信息商务学院（独立学院）",color:"#d4a373"},{name:"2003年6月",detail:"华北工学院与山西顺达储运公司联合举办，校址在华北工学院校本部",color:"#d4a373"},{name:"2004年6月",detail:"华北工学院更名为中北大学 → 中北大学信息商务学院",color:"#d4a373"},{name:"2007年3月",detail:"中北大学与山西大任国际教育交流有限公司签署联合办学协议",color:"#d4a373"},{name:"2008年9月",detail:"迁往晋中市榆次区，首次在新校区招生（与华澳商贸职业学院共用）",color:"#d4a373"},{name:"2012年5月",detail:"所有专业通过学士学位审核，独立颁发学位证书",color:"#d4a373"},{name:"2014年9月",detail:"本科教学全部在榆次校区进行，不再回迁中北大学校本部",color:"#d4a373"},{name:"2015年6月",detail:"成为全国大学英语四六级考试独立考点",color:"#d4a373"},{name:"2015年9月",detail:"华澳商贸职业学院迁出，榆次校区实现完全独立",color:"#d4a373"},{name:"2019年",detail:"获评山西省高校征兵工作先进单位",color:"#d4a373"},{name:"2021年2月2日",detail:"教育部批准转设为独立民办本科 → 山西晋中理工学院",color:"#d4a373"},{name:"2021年3月15日",detail:"山西省人民政府批复同意设立",color:"#d4a373"},{name:"2021年4月24日",detail:"山西晋中理工学院正式揭牌",color:"#d4a373"},{name:"2022年",detail:"获评山西省创建「平安校园」先进单位",color:"#d4a373"},{name:"2023年6月25日",detail:"入选教育部首批全国健康学校建设单位",color:"#d4a373"},{name:"2025年3月10日",detail:"马克思主义学院正式成立",color:"#d4a373"},{name:"2025年4月",detail:"当选山西省高校工程训练常务理事单位",color:"#d4a373"},{name:"2025年5月13日",detail:"山西大学外国语学院与文法学院共建合作签约",color:"#d4a373"},{name:"2025年10月18日",detail:"美派电吹管工作室揭牌，美育浸润计划启动",color:"#d4a373"},{name:"2025年",detail:"获评山西省国家奖学金评审工作表现突出单位",color:"#d4a373"},{name:"2026年6月26-28日",detail:"在长治市青松岭召开合格评估与高质量发展大会",color:"#d4a373"},{name:"2026年7月13日",detail:"宣布省委、省委教育工委关于学校党委主要领导调整决定",color:"#d4a373"}]},
+{name:"🏫 院系设置",color:"#457b9d",desc:"10个教学机构 · 44个本科专业",children:[{name:"智能制造与车辆学院",color:"#457b9d",children:[{name:"机械设计制造及其自动化",detail:"机械工程系 · 省级一流本科专业建设点",color:"#457b9d"},{name:"智能制造工程",detail:"机械工程系",color:"#457b9d"},{name:"车辆工程",detail:"车辆工程系",color:"#457b9d"},{name:"新能源汽车工程",detail:"车辆工程系",color:"#457b9d"},{name:"自动化",detail:"电气工程系",color:"#457b9d"},{name:"电气工程及其自动化",detail:"电气工程系",color:"#457b9d"},{name:"测控技术与仪器",detail:"电气工程系",color:"#457b9d"},{name:"智能装备与系统",detail:"电气工程系",color:"#457b9d"}]},{name:"信创与大数据学院",color:"#2a9d8f",children:[{name:"电子信息科学与技术",detail:"电子信息工程系 · 学费15800元/年",color:"#2a9d8f"},{name:"电子信息工程",detail:"电子信息工程系",color:"#2a9d8f"},{name:"通信工程",detail:"电子信息工程系",color:"#2a9d8f"},{name:"电子与计算机工程",detail:"电子信息工程系 · 软科2025全国第9名 ⭐",color:"#2a9d8f"},{name:"计算机科学与技术",detail:"大数据与智能工程系（含大数据/云计算方向）",color:"#2a9d8f"},{name:"物联网工程",detail:"大数据与智能工程系",color:"#2a9d8f"},{name:"网络工程",detail:"大数据与智能工程系",color:"#2a9d8f"},{name:"智能科学与技术",detail:"大数据与智能工程系",color:"#2a9d8f"},{name:"区块链工程",detail:"大数据与智能工程系",color:"#2a9d8f"},{name:"虚拟现实技术",detail:"大数据与智能工程系 · 软科2025全国第18名 ⭐",color:"#2a9d8f"},{name:"数字媒体技术",detail:"大数据与智能工程系",color:"#2a9d8f"}]},{name:"材料与环境学院",color:"#e76f51",children:[{name:"材料科学与工程",detail:"材料工程系",color:"#e76f51"},{name:"材料成型与控制工程",detail:"材料工程系",color:"#e76f51"},{name:"环境工程",detail:"生物环境系",color:"#e76f51"}]},{name:"商学院",color:"#f4a261",children:[{name:"财务管理",detail:"财会系",color:"#f4a261"},{name:"审计学",detail:"财会系",color:"#f4a261"},{name:"工商管理",detail:"商务系",color:"#f4a261"},{name:"市场营销",detail:"商务系",color:"#f4a261"},{name:"跨境电子商务",detail:"商务系",color:"#f4a261"},{name:"经济学",detail:"金融系",color:"#f4a261"},{name:"国际经济与贸易",detail:"金融系",color:"#f4a261"},{name:"互联网金融",detail:"金融系 · 软科2025全国第32名 ⭐ · 学费14800元/年",color:"#f4a261"},{name:"金融工程",detail:"金融系 · 学费15080元/年",color:"#f4a261"}]},{name:"文法学院",color:"#9c89b8",children:[{name:"法学",detail:"法学系 · 学费14800元/年",color:"#9c89b8"},{name:"社会工作",detail:"法学系",color:"#9c89b8"},{name:"英语",detail:"外语系 · 2025年与山西大学外国语学院共建",color:"#9c89b8"}]},{name:"艺术学院",color:"#f72585",children:[{name:"航空服务艺术与管理",detail:"艺术系",color:"#f72585"},{name:"音乐教育（声乐主项）",detail:"艺术系",color:"#f72585"},{name:"音乐教育（器乐主项）",detail:"艺术系",color:"#f72585"}]},{name:"通识教育学院",detail:"负责全校通识教育课程（大学语文/高等数学/大学物理/大学英语/思政课/体育/计算机基础等）",color:"#6c757d"},{name:"国际交流与继续教育学院",detail:"国际教育合作 · 留学生管理 · 继续教育 · 成人教育",color:"#6c757d"},{name:"马克思主义学院",detail:"2025年3月10日正式成立，负责全校思想政治理论课教学与研究",color:"#6c757d"},{name:"创新创业学院",detail:"全校创新创业教育与实践 · 双创竞赛 · 创业孵化",color:"#6c757d"}]},
+{name:"👨‍🏫 师资力量",color:"#1d3557",desc:"专兼职1000+ · 高级职称300+ · 海外归国70+ · 26个节点",children:[{name:"专兼职教师总数",detail:"1000余人",color:"#1d3557"},{name:"高级职称教师",detail:"300余人（教授/副教授）",color:"#1d3557"},{name:"中级职称教师",detail:"约400余人（讲师）",color:"#1d3557"},{name:"初级职称教师",detail:"约200余人（助教）",color:"#1d3557"},{name:"海外归国人才",detail:"70余人",color:"#1d3557"},{name:"博硕学位占比",detail:"超过80%",color:"#1d3557"},{name:"双师型教师",detail:"具有企业实践经验的教师占比逐年提升",color:"#1d3557"},{name:"师生比",detail:"约1:16",color:"#1d3557"},{name:"国务院特殊津贴",detail:"薛建兰",color:"#1d3557"},{name:"全国双师型导师",detail:"原新 · 全国应用型人才培养工程",color:"#1d3557"},{name:"省级教学名师",detail:"王文寅、李巧玲、薛建兰、韩燮、张瑞蓉",color:"#1d3557"},{name:"省学术技术带头人",detail:"李巧玲、韩燮",color:"#1d3557"},{name:"省高校青年学术带头人",detail:"李巧玲",color:"#1d3557"},{name:"省131领军人才",detail:"王文寅、薛建兰、周子良",color:"#1d3557"},{name:"省333人才工程",detail:"李巧玲 · 新世纪学术技术带头人",color:"#1d3557"},{name:"省科教兴晋专家",detail:"王文寅、薛建兰",color:"#1d3557"},{name:"省三晋英才拔尖骨干",detail:"薛建兰",color:"#1d3557"},{name:"乡村振兴规划评审专家",detail:"刘俊生",color:"#1d3557"},{name:"重大固定资产投资项目风险评估专家",detail:"刘俊生",color:"#1d3557"},{name:"产业联盟专家",detail:"王兴华 · 乳业/高粱暨酿造产业集群",color:"#1d3557"},{name:"外聘教师",detail:"来自中北大学、山西大学等高校及企业专家",color:"#1d3557"},{name:"青年教师教学竞赛",detail:"2025年山西省高校青年教师教学竞赛荣膺多项荣誉",color:"#1d3557"},{name:"辅导员团队",detail:"徐莉获山西省第十届高校辅导员素质能力大赛三等奖（2026.5.17）",color:"#1d3557"},{name:"教师发展",detail:"定期组织教师培训、教学沙龙、青年教师导师制",color:"#1d3557"},{name:"粉笔板书大赛",detail:"第二届「师者为范，笔墨山河」教师粉笔板书大赛",color:"#1d3557"},{name:"教师代表",detail:"韩晓波（山西省歌舞剧院《晋韵晋梦》音乐会）\n刘亚楠（艺术学院教师）\n孙宁波（商学院金融经济系教师）",color:"#1d3557"}]},
+{name:"📚 教学建设",color:"#06d6a0",desc:"省级一流专业/课程 · 87个实验室 · 120+基地 · 1070项竞赛奖",children:[{name:"省级一流本科专业",color:"#06d6a0",children:[{name:"机械设计制造及其自动化",detail:"省级一流本科专业建设点",color:"#06d6a0"}]},{name:"省级一流课程·认定",color:"#06d6a0",children:[{name:"薄煤层支架工作面自动化跟机系统虚拟仿真实验",detail:"认定课程",color:"#06d6a0"}]},{name:"省级一流课程·建设",color:"#06d6a0",children:[{name:"工程制图A",detail:"建设课程",color:"#06d6a0"},{name:"机械设计基础A(1)",detail:"建设课程",color:"#06d6a0"},{name:"人力资源管理",detail:"建设课程",color:"#06d6a0"},{name:"大学物理(1)",detail:"建设课程",color:"#06d6a0"}]},{name:"省级一流课程·培育",color:"#06d6a0",children:[{name:"电子技术基础",detail:"培育课程",color:"#06d6a0"},{name:"计算机网络",detail:"培育课程",color:"#06d6a0"},{name:"电路分析基础",detail:"培育课程",color:"#06d6a0"},{name:"大学物理(2)",detail:"培育课程",color:"#06d6a0"},{name:"机械制造基础",detail:"培育课程",color:"#06d6a0"},{name:"民事诉讼法学",detail:"培育课程",color:"#06d6a0"},{name:"管理会计",detail:"培育课程",color:"#06d6a0"}]},{name:"重点实验室",color:"#06d6a0",children:[{name:"3D打印实验室",detail:"智能制造与车辆学院",color:"#06d6a0"},{name:"智能硬件云实验室",detail:"信创与大数据学院",color:"#06d6a0"},{name:"模拟训练机舱",detail:"艺术学院航空服务",color:"#06d6a0"},{name:"企业全景运营AR实训室",detail:"商学院",color:"#06d6a0"},{name:"物理实验中心",detail:"大学物理实验教学",color:"#06d6a0"},{name:"电工电子实验中心",detail:"电路/电子技术实验",color:"#06d6a0"},{name:"计算机实训中心",detail:"计算机类课程实践",color:"#06d6a0"},{name:"机械工程实训中心",detail:"金工/数控加工实训",color:"#06d6a0"},{name:"语言实验室",detail:"英语听力/口语训练",color:"#06d6a0"},{name:"模拟法庭",detail:"法学专业实践教学",color:"#06d6a0"}]},{name:"实习基地",detail:"120余个 · 覆盖北京/上海/广东/江苏/浙江/福建/湖北等11个省市",color:"#06d6a0"},{name:"省级教改项目",detail:"8项山西省高等学校一般性教学改革创新项目",color:"#06d6a0"},{name:"学科竞赛获奖",detail:"全国各级各类竞赛获奖1070项",color:"#06d6a0"},{name:"产学研合作项目",detail:"校企共同申报立项26项",color:"#06d6a0"},{name:"大创项目",detail:"省级大学生创新训练计划项目236项",color:"#06d6a0"},{name:"就业育人项目",color:"#06d6a0",children:[{name:"正大食品（陕西）",detail:"人力资源提升项目",color:"#06d6a0"},{name:"长城汽车",detail:"人力资源提升项目",color:"#06d6a0"},{name:"北京博文环球",detail:"人力资源提升项目",color:"#06d6a0"},{name:"中企盈飞(北京)会计",detail:"定向人才培养/就业实习基地",color:"#06d6a0"},{name:"北京广慧金通教育",detail:"定向人才培养",color:"#06d6a0"}]},{name:"美育浸润计划",detail:"2025年10月18日「美派电吹管工作室」揭牌",color:"#06d6a0"},{name:"合格评估",detail:"2026年6月26-28日在长治市青松岭召开合格评估与高质量发展大会",color:"#06d6a0"},{name:"教学特色",detail:"学校开设大量自习室，学习氛围浓厚，同学自觉上自习",color:"#06d6a0"},{name:"毕业设计",detail:"本科毕业需完成毕业设计或毕业论文并通过答辩",color:"#06d6a0"},{name:"学分制",detail:"实行弹性学分制，修满规定学分方可毕业",color:"#06d6a0"},{name:"学位授予",detail:"符合条件授予学士学位证书",color:"#06d6a0"},{name:"四六级考点",detail:"2015年起成为全国大学英语四六级考试独立考点",color:"#06d6a0"},{name:"AI赋能教学",detail:"2026年合格评估大会提出推动人工智能赋能教学",color:"#06d6a0"},{name:"在校生人数",detail:"全日制在校生16,945名",color:"#06d6a0"}]},
+{name:"🔬 学术研究",color:"#7209b7",desc:"科研平台3个 · 论文166篇 · 专利10+项",children:[{name:"科研平台",color:"#7209b7",children:[{name:"材料基础研究中心",detail:"校级研究中心",color:"#7209b7"},{name:"智能硬件云平台实验中心",detail:"校级实验中心",color:"#7209b7"},{name:"科研与成果转化研究院",detail:"校级研究院",color:"#7209b7"}]},{name:"论文成果",color:"#7209b7",children:[{name:"科研论文总计",detail:"166篇",color:"#7209b7"},{name:"高水平期刊论文",detail:"9篇（SCI/EI/北大核心等）",color:"#7209b7"},{name:"省部级刊物论文",detail:"157篇",color:"#7209b7"}]},{name:"发明专利",color:"#7209b7",children:[{name:"基于深度学习的相似性产品推荐模型构建方法",detail:"刘欣宇;李宇;宋可",color:"#7209b7"},{name:"轻量化智能搬运机器人",detail:"高晓慧;暴建岗;王忠庆;张岩军;刘彩花;王贝贝;侯强",color:"#7209b7"}]},{name:"实用新型专利",color:"#7209b7",children:[{name:"计算机降噪装置",detail:"曹玲玲",color:"#7209b7"},{name:"就业指导用知识宣传栏",detail:"张文栋;王锋;师翼;武文秀;程怡安;陈晓红;王艳芳",color:"#7209b7"},{name:"基于单片机加工的检测设备",detail:"程怡安;刘欣歌;许芝铖;张岩军;刘彩花;刘忠南;侯强;原新;安婷等",color:"#7209b7"},{name:"带有改进结构的煤矿巡检机器人",detail:"李泽鑫;郝骞;张晋;王子玉;边媛",color:"#7209b7"},{name:"新型行走机构的苹果采摘机器人",detail:"赵英虎;郝骞;刘俊生;卢谌;秦廷",color:"#7209b7"},{name:"水下光无线传感器网络安全管理设备",detail:"范辰祺;郝骞;杨鹏;冀伦武;杨昌蕊;宇航;石慧",color:"#7209b7"}]},{name:"外观设计专利",color:"#7209b7",children:[{name:"羽毛球比赛计分器",detail:"陈才;赵英虎;李琼",color:"#7209b7"},{name:"羽毛球机器人上位机",detail:"陈才;赵英虎;石洋",color:"#7209b7"}]},{name:"省部级科研项目",color:"#7209b7",children:[{name:"双碳目标下山西省碳排放交易制度调查研究",detail:"郭彦锐 · 省哲学社会科学规划课题",color:"#7209b7"},{name:"一带一路背景下平遥古城旅游文化外宣策略研究",detail:"媛李 · 省哲学社会科学规划课题",color:"#7209b7"},{name:"山西革命精神融入民办高校大学生思想政治教育研究",detail:"孟丕 · 省高校哲学社科思政专项",color:"#7209b7"},{name:"五育人并举背景下高校优良学风培育模式研究",detail:"柳杨 · 省高校哲学社科思政专项",color:"#7209b7"},{name:"大学生网络亚文化现象教育引导研究",detail:"原媛 · 省高校哲学社科思政专项",color:"#7209b7"},{name:"革命精神融入高校学生德育工作体系路径研究",detail:"祁春春 · 省高校哲学社科思政专项",color:"#7209b7"},{name:"新时代农村互助养老发展研究",detail:"武文秀 · 省民政政策理论研究重点课题",color:"#7209b7"},{name:"如何有效推进山西慈善事业高质量发展",detail:"高小鹏 · 省民政政策理论研究课题",color:"#7209b7"}]},{name:"学术交流",detail:"定期邀请校内外专家开展学术讲座 · 鼓励教师参加国内外学术会议 · 校企联合技术攻关",color:"#7209b7"},{name:"科研经费",detail:"学校逐年增加科研经费投入，支持教师科研项目",color:"#7209b7"}]},
+{name:"🏆 排名与评估",color:"#e63946",desc:"校友会/软科排名 · 16个节点",children:[{name:"校友会2025·山西省民办大学",detail:"第1名（山西省最好民办大学）🥇",color:"#e63946"},{name:"校友会2025·全国理工类民办",detail:"第53名",color:"#e63946"},{name:"校友会2025·大学分类",detail:"中国应用型大学",color:"#e63946"},{name:"校友会2025·大学星级",detail:"区域知名大学",color:"#e63946"},{name:"软科2025·电子与计算机工程",detail:"全国第9名 ⭐ · 王牌专业，电子信息与计算机交叉领域竞争力强",color:"#e63946"},{name:"软科2025·虚拟现实技术",detail:"全国第18名 ⭐ · 学校布局前沿科技产业人才培育的前瞻性体现",color:"#e63946"},{name:"软科2025·互联网金融",detail:"全国第32名 ⭐",color:"#e63946"},{name:"全国健康学校",detail:"2023年6月入选教育部首批全国健康学校建设单位",color:"#e63946"},{name:"山西省民办前三强",detail:"山西晋中理工学院、山西工商学院、晋中信息学院",color:"#e63946"},{name:"本科合格评估",detail:"2026年6月召开合格评估与高质量发展大会",color:"#e63946"},{name:"省级一流专业",detail:"机械设计制造及其自动化获批省级一流本科专业建设点",color:"#e63946"},{name:"省级一流课程",detail:"12门课程获批2024年省级一流本科课程",color:"#e63946"},{name:"高校工程训练常务理事",detail:"2025年4月当选山西省高校工程训练常务理事单位",color:"#e63946"},{name:"平安校园",detail:"2022年获评2021年度山西省创建「平安校园」先进单位",color:"#e63946"},{name:"征兵工作先进单位",detail:"2019年获评2018年山西省高校征兵工作先进单位",color:"#e63946"},{name:"国家奖学金评审",detail:"2025年获评山西省国家奖学金评审工作表现突出单位",color:"#e63946"}]},
+{name:"🤝 合作交流",color:"#2a9d8f",desc:"国际合作10+国家/100+院校 · 校企合作120+基地",children:[{name:"国际院校合作",color:"#2a9d8f",children:[{name:"澳大利亚麦考瑞大学",detail:"Macquarie University",color:"#2a9d8f"},{name:"澳大利亚科廷大学",detail:"Curtin University",color:"#2a9d8f"},{name:"澳大利亚伍伦贡大学",detail:"University of Wollongong",color:"#2a9d8f"},{name:"澳大利亚埃迪斯科文大学",detail:"Edith Cowan University",color:"#2a9d8f"},{name:"美国威斯康星大学",detail:"University of Wisconsin",color:"#2a9d8f"},{name:"英国伦敦大学",detail:"University of London",color:"#2a9d8f"},{name:"新加坡国立大学",detail:"National University of Singapore",color:"#2a9d8f"}]},{name:"国际合作体系",detail:"「本-硕-博」贯通国际教育合作体系，覆盖10+国家和地区100+院校",color:"#2a9d8f"},{name:"校企合作",color:"#2a9d8f",children:[{name:"金龙鱼梁汾醋业",detail:"产教融合深度合作，2026年6月校企零距离深度走访",color:"#2a9d8f"},{name:"长城汽车",detail:"教育部就业育人项目",color:"#2a9d8f"},{name:"正大食品（陕西）",detail:"教育部就业育人项目",color:"#2a9d8f"},{name:"中企盈飞(北京)会计",detail:"定向人才培养/就业实习基地",color:"#2a9d8f"},{name:"北京广慧金通教育",detail:"定向人才培养",color:"#2a9d8f"},{name:"北京博文环球",detail:"就业育人项目",color:"#2a9d8f"},{name:"100+知名企业",detail:"学校已与100余家知名企业建立合作关系",color:"#2a9d8f"}]},{name:"实习基地",detail:"120余个 · 覆盖北京/上海/广东/江苏/浙江/福建/湖北等11个省市",color:"#2a9d8f"},{name:"国内院校合作",color:"#2a9d8f",children:[{name:"山西大学",detail:"2025年5月外国语学院与文法学院共建合作",color:"#2a9d8f"},{name:"中北大学",detail:"前身依托院校，保持学术交流",color:"#2a9d8f"}]},{name:"产教融合",detail:"校企同频，育见未来 · 精准对接行业发展需求 · 打通人才培养与就业落地通道",color:"#2a9d8f"}]},
+{name:"🎓 招生就业",color:"#f4a261",desc:"面向27省 · 就业率79% · 20个节点",children:[{name:"招生范围",detail:"面向全国27个省市开展本科招生",color:"#f4a261"},{name:"2025年招生人数",detail:"2522人（27个专业）",color:"#f4a261"},{name:"录取批次",detail:"本科二批（部分省份合并为本科批）",color:"#f4a261"},{name:"录取分数线",detail:"2025年全国录取分数线328分-548分（各省差异）",color:"#f4a261"},{name:"最低分省份",detail:"新疆理科（328分）",color:"#f4a261"},{name:"最高分省份",detail:"海南（专业组01，548分）",color:"#f4a261"},{name:"浙江省",detail:"本科投档录取最低496分",color:"#f4a261"},{name:"录取规则",detail:"分数优先、遵循志愿，无专业级差",color:"#f4a261"},{name:"调档比例",detail:"原则上控制在105%以内",color:"#f4a261"},{name:"加分政策",detail:"承认各省教育主管部门规定的加分政策",color:"#f4a261"},{name:"外语要求",detail:"英语专业要求英语单科成绩不低于90分（满分150分）",color:"#f4a261"},{name:"身体要求",detail:"航空服务艺术与管理专业有身高/视力等身体条件要求",color:"#f4a261"},{name:"就业率",detail:"79%",color:"#f4a261"},{name:"考研率",detail:"3%",color:"#f4a261"},{name:"就业地区",detail:"44%太原 · 15%北京 · 其余分布全国",color:"#f4a261"},{name:"就业方向",detail:"8%的毕业生在国企/事业单位工作",color:"#f4a261"},{name:"就业指导",detail:"学校设有就业指导中心，提供职业规划/简历指导/模拟面试等服务",color:"#f4a261"},{name:"创业支持",detail:"创新创业学院提供创业孵化、创业导师、创业基金等支持",color:"#f4a261"},{name:"新生报到",detail:"通常在9月初报到，具体以录取通知书为准",color:"#f4a261"},{name:"入学资格复查",detail:"新生入学后进行资格复查，合格者注册学籍",color:"#f4a261"}]},
+{name:"🎭 校园文化",color:"#f72585",desc:"校训/校歌/校徽 · 61个社团 · 18个节点",children:[{name:"校训",detail:"谨信博学，经世致用\n恭谨诚信，博学多才。师德学风，对学问谦恭谨让，不浮不躁，以诚待学，诚信守信。",color:"#f72585"},{name:"校歌",detail:"《山西晋中理工学院校歌》\n词：刘耀国 曲：宋洋\n奔腾的黄河，巍峨的太行，赤子情深在胸中激荡；忠诚果敢，意气昂扬，历史的使命永记心上。莫要错过，莫要彷徨，我们托起未来的希望。面向世界，迎着朝阳，实现我们的共同理想！神圣的课堂，醉人的书香，莘莘学子在茁壮成长；谨信博学，经世致用，困难是成功新的起航。栉风沐雨，合力求真，勤奋探索科学的海洋。恢弘志士，桃李芬芳，重塑古老的华夏荣光！",color:"#f72585"},{name:"校庆日",detail:"10月9日",color:"#f72585"},{name:"社团总数",detail:"61个学生社团（校直属社团23个、院系社团38个）",color:"#f72585"},{name:"星河舞蹈社",detail:"创立于2021年10月，开设古典舞/民族舞/芭蕾舞/现代舞/爵士舞/拉丁舞/韩舞/编舞等",color:"#f72585"},{name:"爱心社",detail:"成立于2008年9月，校团委直属公益实践类社团，获2022年山西晋中高校新区「最佳志愿服务团体」",color:"#f72585"},{name:"橘子合唱团",detail:"以音乐广场为主题，活跃于校园文艺活动",color:"#f72585"},{name:"戎光先锋团",detail:"校军事类社团，在晋中市高校消防对抗赛中多次获奖",color:"#f72585"},{name:"无线电测向队",detail:"2025年12月全国锦标赛载誉归来",color:"#f72585"},{name:"校园音乐节",detail:"「青春终章 声浪不息」毕业校园音乐节",color:"#f72585"},{name:"迎新晚会",detail:"「青春拂晓·韶华筑梦」2025年迎新晚会",color:"#f72585"},{name:"春季运动会",detail:"2025年4月24日隆重开幕，董事长刘耀国、校长吴晓军等出席",color:"#f72585"},{name:"志愿者协会",detail:"组织校内外志愿服务、公益活动、支教、社区服务",color:"#f72585"},{name:"学生会",detail:"校学生会及院系学生会，服务同学/组织活动/桥梁纽带",color:"#f72585"},{name:"社会实践",detail:"寒假「返家乡」社会实践活动，如艺术学院任立媛同学获共青团灵石县委表扬",color:"#f72585"},{name:"学科竞赛文化",detail:"从校级竞赛到国家级领奖台，武超逸等同学展现了拼搏精神",color:"#f72585"},{name:"毕业季考研",detail:"2026年5月材料与环境学院128宿舍三人全部考研上岸",color:"#f72585"},{name:"新媒体创作",detail:"2026年5月16日中青校媒（山西）换届大会，全省32所高校齐聚",color:"#f72585"}]},
+{name:"🏗️ 校园设施",color:"#457b9d",desc:"图书馆 · 教学楼 · 运动场馆 · 生活设施",children:[{name:"图书馆",color:"#457b9d",children:[{name:"纸质图书",detail:"16万余种，近136万余册 · 与晋中市图书馆共建35万册",color:"#457b9d"},{name:"电子图书",detail:"近144万余册",color:"#457b9d"},{name:"阅览座位",detail:"充足的自习和阅览空间",color:"#457b9d"},{name:"开放时间",detail:"周一至周日 8:00-22:00",color:"#457b9d"}]},{name:"教学楼",detail:"配备多媒体教室、智慧教室、阶梯教室",color:"#457b9d"},{name:"运动场馆",detail:"标准田径场/足球场/篮球场/羽毛球场/乒乓球室",color:"#457b9d"},{name:"实训中心",color:"#457b9d",children:[{name:"机械工程实训中心",detail:"金工/数控加工实训",color:"#457b9d"},{name:"计算机实训中心",detail:"计算机类课程实践",color:"#457b9d"},{name:"电工电子实验中心",detail:"电路/电子技术实验",color:"#457b9d"},{name:"物理实验中心",detail:"大学物理实验教学",color:"#457b9d"}]},{name:"校园超市",detail:"校内设有超市，方便学生购买日用品",color:"#457b9d"},{name:"校医院",detail:"校内设有医务室/校医院，提供基本医疗服务",color:"#457b9d"},{name:"快递点",detail:"校内设有菜鸟驿站等快递收发点",color:"#457b9d"},{name:"银行/ATM",detail:"校园内设有银行ATM自助服务",color:"#457b9d"},{name:"校园网络",detail:"校园网覆盖教学楼/宿舍/图书馆，有线+无线",color:"#457b9d"},{name:"绿化环境",detail:"校园绿化覆盖率高，环境优美",color:"#457b9d"}]},
+{name:"⚖️ 行政管理",color:"#6c757d",desc:"现任领导 · 组织架构 · 各职能部门",children:[{name:"现任领导",color:"#6c757d",children:[{name:"党委书记、省政府督导专员",detail:"霍世平",color:"#6c757d"},{name:"党委副书记、校长",detail:"吴晓军",color:"#6c757d"},{name:"党委副书记、纪委书记",detail:"刘继国",color:"#6c757d"},{name:"党委委员、副校长",detail:"王锋、张普选、王进宝",color:"#6c757d"},{name:"党委委员、校长助理",detail:"贾健鹏",color:"#6c757d"},{name:"董事长",detail:"刘耀国",color:"#6c757d"}]},{name:"主要处室",color:"#6c757d",children:[{name:"学校办公室",detail:"综合协调、文秘、档案、接待",color:"#6c757d"},{name:"党委办公室",detail:"党务工作、组织建设、宣传思想",color:"#6c757d"},{name:"教务处",detail:"教学管理、学籍管理、考试管理",color:"#6c757d"},{name:"学生处",detail:"学生管理、思想政治教育、心理健康",color:"#6c757d"},{name:"人事处",detail:"师资队伍建设、人事管理",color:"#6c757d"},{name:"财务处",detail:"财务管理、预算管理",color:"#6c757d"},{name:"后勤保障处",detail:"校园设施维护、水电暖供应、绿化",color:"#6c757d"},{name:"招生与就业指导处",detail:"招生录取、就业指导、校企合作",color:"#6c757d"},{name:"科研处",detail:"科研项目管理、成果转化",color:"#6c757d"},{name:"国际交流处",detail:"国际教育合作、留学生管理",color:"#6c757d"},{name:"保卫处",detail:"校园安全、消防管理、综合治理",color:"#6c757d"},{name:"校团委",detail:"共青团工作、社团管理、志愿服务",color:"#6c757d"},{name:"校工会",detail:"教职工权益维护、文体活动、教职工代表大会",color:"#6c757d"},{name:"图书馆",detail:"图书资源管理、信息服务",color:"#6c757d"}]},{name:"院系管理",detail:"10个教学机构实行学院制管理，各自设有院长/副院长/系主任/教研室等",color:"#6c757d"},{name:"民办教育属性",detail:"学校由山西大任国际教育交流有限公司举办，实行董事会领导下的校长负责制",color:"#6c757d"}]},
+{name:"🏆 荣誉成就",color:"#e63946",desc:"21项重要荣誉 · 精确到日期",children:[{name:"全国健康学校建设单位",detail:"2023年6月25日 · 教育部首批",color:"#e63946"},{name:"山西省民办大学第1名",detail:"校友会2025",color:"#e63946"},{name:"山西省平安校园先进单位",detail:"2022年 · 2021年度",color:"#e63946"},{name:"山西省高校征兵工作先进单位",detail:"2019年 · 2018年度",color:"#e63946"},{name:"国家奖学金评审突出单位",detail:"2025年 · 2023-2024学年度",color:"#e63946"},{name:"高校工程训练常务理事",detail:"2025年4月当选",color:"#e63946"},{name:"学科竞赛奖",detail:"全国各级各类竞赛获奖1070项",color:"#e63946"},{name:"金相技能大赛",detail:"2025年7月 · 材料与环境学院学子在全国大学生金相技能大赛中喜获佳绩",color:"#e63946"},{name:"商学院考研",detail:"2026年5月 · 商学院部分学子考研捷报频传",color:"#e63946"},{name:"非遗校园演说大赛",detail:"2026年5月 · 山西省「非遗正青春」校园演说大赛喜获佳绩",color:"#e63946"},{name:"辅导员素质能力大赛",detail:"2026年5月 · 徐莉获山西省第十届高校辅导员素质能力大赛三等奖",color:"#e63946"},{name:"民盟支部荣誉",detail:"2026年4月 · 民盟山西晋中理工学院支部获多项省级荣誉表彰",color:"#e63946"},{name:"读懂中国活动",detail:"2026年3月 · 2025年「读懂中国」活动喜获佳绩",color:"#e63946"},{name:"职业规划大赛",detail:"2026年3月 · 山西省第三届大学生职业规划大赛优秀组织奖",color:"#e63946"},{name:"九斗杯物理竞赛",detail:"2025年12月 · 荣获多项荣誉",color:"#e63946"},{name:"无线电测向全国锦标赛",detail:"2025年12月 · 载誉归来",color:"#e63946"},{name:"消防对抗赛",detail:"2025年11月/12月 · 戎光先锋团在晋中市高校消防对抗赛中再获佳绩",color:"#e63946"},{name:"青年教师教学竞赛",detail:"2025年12月 · 山西省高校青年教师教学竞赛荣膺多项荣誉",color:"#e63946"},{name:"雏菊绽放青少年艺术展演",detail:"2025年12月 · 艺术学院学子在山西省第十四届展演中喜获佳绩",color:"#e63946"},{name:"人文知识竞赛",detail:"2025年12月 · 华北五省大学生人文知识竞赛山西赛区喜获多项佳绩",color:"#e63946"},{name:"九三阅兵",detail:"2025年10月 · 优秀毕业生吴兰光荣亮相九三阅兵",color:"#e63946"}]},
+{name:"🚩 党建工作",color:"#e63946",desc:"党组织架构 · 思政课程 · 党员发展",children:[{name:"党委书记",detail:"霍世平（党委书记、省政府督导专员）",color:"#e63946"},{name:"党委副书记",detail:"吴晓军（校长）、刘继国（纪委书记）",color:"#e63946"},{name:"马克思主义学院",detail:"2025年3月10日正式成立，负责全校思想政治理论课教学与研究",color:"#e63946"},{name:"思政课程",color:"#e63946",children:[{name:"马克思主义基本原理",detail:"必修 · 3学分",color:"#e63946"},{name:"毛泽东思想和中国特色社会主义理论体系概论",detail:"必修 · 5学分",color:"#e63946"},{name:"中国近现代史纲要",detail:"必修 · 3学分",color:"#e63946"},{name:"思想道德与法治",detail:"必修 · 3学分",color:"#e63946"},{name:"形势与政策",detail:"必修 · 2学分",color:"#e63946"}]},{name:"党史学习",detail:"定期组织党史学习教育活动",color:"#e63946"},{name:"主题党日",detail:"每月组织主题党日活动",color:"#e63946"},{name:"党员发展",detail:"每年发展新党员，严格按程序培养考察",color:"#e63946"},{name:"民盟支部",detail:"民盟山西晋中理工学院支部 · 2026年4月获多项省级荣誉",color:"#e63946"},{name:"党委领导调整",detail:"2026年7月13日宣布省委、省委教育工委关于学校党委主要领导调整决定",color:"#e63946"}]},
+{name:"🎨 学校标识",color:"#9c89b8",desc:"校徽 · 校训 · 校歌 · 校庆日",children:[{name:"校徽",detail:"外形呈圆形，象征圆满、融合、和谐。中间设计大齿轮，象征理工性质。齿轮中间为「山西」小篆字，下方为2002年份。外圈上部为英文校名，下部为书法名家书写的「山西晋中理工学院」。",color:"#9c89b8"},{name:"校徽寓意",detail:"齿轮代表驱动及动力，同时代表协作精神。篆字代表中国五千年深厚文化底蕴。英文校名寓意立足山西，走向世界。",color:"#9c89b8"},{name:"校训",detail:"谨信博学，经世致用",color:"#9c89b8"},{name:"校训出处",detail:"《论语·学而》「谨而信，泛爱众。」邢昺疏：「言恭谨而诚信也。」",color:"#9c89b8"},{name:"校歌",detail:"《山西晋中理工学院校歌》 · 词：刘耀国 · 曲：宋洋",color:"#9c89b8"},{name:"校庆日",detail:"10月9日",color:"#9c89b8"},{name:"英文缩写",detail:"SJIT",color:"#9c89b8"},{name:"主色调",detail:"红色（校徽主色）",color:"#9c89b8"},{name:"辅助色",detail:"蓝色、白色",color:"#9c89b8"},{name:"校名字体",detail:"书法名家书写体",color:"#9c89b8"},{name:"二级学院徽标",detail:"各二级学院拥有独立徽标设计",color:"#9c89b8"}]},
+{name:"📡 校园媒体",color:"#457b9d",desc:"官网 · 新媒体 · 校报 · 宣传矩阵",children:[{name:"官方网站",detail:"www.sxjzit.edu.cn",color:"#457b9d"},{name:"抖音平台",detail:"山西晋中理工学院官方抖音号",color:"#457b9d"},{name:"微信公众号",detail:"山西晋中理工学院官方微信公众号",color:"#457b9d"},{name:"视频号",detail:"微信视频号同步发布校园动态",color:"#457b9d"},{name:"校报",detail:"山西晋中理工学院校报",color:"#457b9d"},{name:"宣传片",detail:"山西晋中理工学院学校宣传片",color:"#457b9d"},{name:"VR全景",detail:"VR晋理 · 校园全景在线展示",color:"#457b9d"},{name:"中青校媒（山西）",detail:"2026年5月16日参加第十四届学生主席团换届大会，全省32所高校媒体骨干齐聚",color:"#457b9d"},{name:"校园广播",detail:"校园广播站每日播报",color:"#457b9d"},{name:"新媒体矩阵",detail:"覆盖微信/微博/抖音/视频号/B站等主流平台",color:"#457b9d"}]},
+{name:"💡 特色亮点",color:"#06d6a0",desc:"15个核心亮点",children:[{name:"应用型办学定位",detail:"以工学为主，工/管/文/法/艺/经多学科协调发展",color:"#06d6a0"},{name:"智能+特色",detail:"智能制造、信创大数据、虚拟现实、区块链、智能科学与技术等前沿专业",color:"#06d6a0"},{name:"国际视野",detail:"本-硕-博贯通国际教育合作体系，覆盖10+国家和地区100+院校",color:"#06d6a0"},{name:"阳光留学基地",detail:"教育部阳光留学示范基地",color:"#06d6a0"},{name:"产教融合",detail:"校企同频，育见未来 · 与100+知名企业建立合作关系",color:"#06d6a0"},{name:"晋中大学城",detail:"位于山西高校新区，周边有太原理工大学等7所高校",color:"#06d6a0"},{name:"交通便利",detail:"毗邻晋中高铁站，步行约10-15分钟 · 距太原武宿机场约20分钟",color:"#06d6a0"},{name:"中北大学渊源",detail:"前身为中北大学信息商务学院，传承中北大学工科底蕴",color:"#06d6a0"},{name:"健康学校",detail:"2023年入选教育部首批全国健康学校建设单位",color:"#06d6a0"},{name:"美育浸润",detail:"2025年启动美育浸润计划，美派电吹管工作室揭牌",color:"#06d6a0"},{name:"人工智能赋能",detail:"2026年推进人工智能赋能教学改革",color:"#06d6a0"},{name:"考研宿舍",detail:"2026年材料与环境学院128宿舍三人全部考研上岸",color:"#06d6a0"},{name:"软科专业排名",detail:"电子与计算机工程全国第9 · 虚拟现实技术全国第18 · 互联网金融全国第32",color:"#06d6a0"},{name:"校友会排名",detail:"山西省民办大学第1名 · 全国理工类民办第53名",color:"#06d6a0"},{name:"快速成长期",detail:"学校处于快速发展期，从2021年转设至今持续投入建设",color:"#06d6a0"}]},
+{name:"💰 学费与资助",color:"#f4a261",desc:"学费标准 · 住宿费 · 奖助学金 · 助学贷款",children:[{name:"普通本科专业学费",detail:"约14,800-16,080元/学年（不同专业略有差异）",color:"#f4a261"},{name:"法学专业",detail:"14,800元/学年",color:"#f4a261"},{name:"互联网金融专业",detail:"14,800元/学年",color:"#f4a261"},{name:"金融工程专业",detail:"15,080元/学年",color:"#f4a261"},{name:"电子信息科学与技术",detail:"15,800元/学年",color:"#f4a261"},{name:"智能制造工程",detail:"16,080元/学年",color:"#f4a261"},{name:"艺术类专业学费",detail:"约16,800-18,800元/学年",color:"#f4a261"},{name:"住宿费",detail:"约1,000元/学年（6人间标准）",color:"#f4a261"},{name:"教材费",detail:"约500-800元/学年",color:"#f4a261"},{name:"生活费",detail:"月均1,000-1,500元（含餐饮/日用品/交通等）",color:"#f4a261"},{name:"合计年度费用",detail:"约16,000-20,000元/学年",color:"#f4a261"},{name:"国家奖学金",detail:"8,000元/年（特别优秀学生）",color:"#f4a261"},{name:"国家励志奖学金",detail:"5,000元/年（品学兼优家庭经济困难学生）",color:"#f4a261"},{name:"国家助学金",detail:"一等4,000元/年 · 二等3,000元/年 · 三等2,000元/年",color:"#f4a261"},{name:"助学贷款",detail:"生源地信用助学贷款，最高12,000元/年",color:"#f4a261"},{name:"校内奖学金",detail:"优秀学生奖学金/单项奖学金/考研奖学金等",color:"#f4a261"},{name:"勤工助学",detail:"校内设有勤工助学岗位，如图书馆助理、实验室助理等",color:"#f4a261"},{name:"学费减免",detail:"家庭经济困难学生可申请学费减免",color:"#f4a261"},{name:"绿色通道",detail:"新生入学设有绿色通道，确保家庭经济困难学生顺利入学",color:"#f4a261"},{name:"社会资助",detail:"部分企业和社会团体设立专项奖学金",color:"#f4a261"}]},
+{name:"🏠 宿舍生活",color:"#457b9d",desc:"学生宿舍概况 · 设施配置 · 生活服务",children:[{name:"宿舍类型",detail:"标准4-6人间学生公寓 · 女生宿舍上床下桌",color:"#457b9d"},{name:"基本设施",detail:"配备床、书桌、椅子、衣柜、暖气等",color:"#457b9d"},{name:"网络服务",detail:"校园网覆盖宿舍区，提供有线/无线网络接入",color:"#457b9d"},{name:"洗浴设施",detail:"公共浴室/楼层浴室，热水供应",color:"#457b9d"},{name:"洗衣服务",detail:"宿舍楼配备自助洗衣机",color:"#457b9d"},{name:"饮用水",detail:"直饮水设备/开水房，24小时供应",color:"#457b9d"},{name:"供电时间",detail:"全天供电（部分时段限电管理，保障安全）",color:"#457b9d"},{name:"门禁管理",detail:"宿舍楼设有门禁系统，刷卡进出",color:"#457b9d"},{name:"宿舍管理",detail:"每栋楼配备宿管员，24小时值班",color:"#457b9d"},{name:"空调",detail:"部分宿舍配备空调（分批次安装）",color:"#457b9d"},{name:"卫生管理",detail:"定期卫生检查，保持宿舍整洁",color:"#457b9d"},{name:"室友分配",detail:"按专业和班级统一分配",color:"#457b9d"},{name:"宿舍费用",detail:"约1,000元/学年",color:"#457b9d"}]},
+{name:"🍽️ 餐饮服务",color:"#e76f51",desc:"校内食堂 · 风味餐厅 · 餐饮特色",children:[{name:"食堂数量",detail:"校内多个食堂及风味餐厅，种类丰富",color:"#e76f51"},{name:"菜品种类",detail:"涵盖山西面食、川菜、湘菜、快餐、小吃等多种风味",color:"#e76f51"},{name:"消费水平",detail:"日均餐饮消费约20-40元",color:"#e76f51"},{name:"特色面食",detail:"山西刀削面、拉面、焖面、猫耳朵等地方特色",color:"#e76f51"},{name:"早餐供应",detail:"包子、油条、豆浆、粥、鸡蛋等",color:"#e76f51"},{name:"午餐/晚餐",detail:"套餐、盖饭、面条、麻辣烫、小炒等",color:"#e76f51"},{name:"清真餐厅",detail:"设有清真窗口，满足少数民族学生需求",color:"#e76f51"},{name:"外卖服务",detail:"支持外卖配送至宿舍楼下",color:"#e76f51"},{name:"支付方式",detail:"支持校园卡/微信/支付宝支付",color:"#e76f51"},{name:"营业时间",detail:"早餐6:30-8:30 / 午餐11:00-13:00 / 晚餐17:00-19:30",color:"#e76f51"},{name:"校园小吃街",detail:"校内及周边有小吃商铺",color:"#e76f51"}]},
+{name:"🚌 交通出行",color:"#6c757d",desc:"地理位置 · 公共交通 · 周边环境",children:[{name:"学校地址",detail:"山西省晋中市榆次区",color:"#6c757d"},{name:"晋中高铁站",detail:"毗邻晋中站，步行约10-15分钟",color:"#6c757d"},{name:"太原南站",detail:"高铁约15分钟可达",color:"#6c757d"},{name:"太原站",detail:"约30-40分钟车程",color:"#6c757d"},{name:"太原武宿机场",detail:"约20分钟车程",color:"#6c757d"},{name:"公交线路",detail:"多条公交线路途经学校，可直达市区",color:"#6c757d"},{name:"太原市区",detail:"约30分钟车程可达太原市中心",color:"#6c757d"},{name:"榆次老城",detail:"距离榆次老城景区约10分钟车程",color:"#6c757d"},{name:"晋中大学城",detail:"位于山西高校新区",color:"#6c757d"},{name:"周边商业",detail:"周边有商业街、超市、餐饮、银行等",color:"#6c757d"},{name:"周边医疗",detail:"附近有晋中市第一人民医院等",color:"#6c757d"},{name:"共享单车",detail:"校园周边有共享单车/电动车",color:"#6c757d"},{name:"网约车",detail:"打车方便，可使用滴滴等平台",color:"#6c757d"},{name:"自驾",detail:"可通过太原绕城高速、榆祁高速到达",color:"#6c757d"}]},
+{name:"💬 学生口碑",color:"#9c89b8",desc:"来自在校生和毕业生的真实评价",children:[{name:"师资评价",detail:"师资力量相对不错，专业课老师教学水平较好，老师认真负责",color:"#9c89b8"},{name:"校园环境",detail:"校园环境优美，绿化覆盖率高，适合学习和生活",color:"#9c89b8"},{name:"学习氛围",detail:"学习氛围很好，每个同学都有明确的目标，很多同学自觉上自习",color:"#9c89b8"},{name:"设施评价",detail:"设施还不是很完备，有待进一步完善和提升",color:"#9c89b8"},{name:"活动评价",detail:"平日活动讲座相对较少，能获得的课外资源较少",color:"#9c89b8"},{name:"发展评价",detail:"学校在变得越来越好，不同于网上的一些极端言论",color:"#9c89b8"},{name:"费用评价",detail:"学费+住宿费约一万六千多一学年，性价比尚可",color:"#9c89b8"},{name:"转专业",detail:"转专业相对容易，学校还提供二学历机会",color:"#9c89b8"},{name:"地理位置",detail:"挨着晋中站，交通便利，去太原也很方便",color:"#9c89b8"},{name:"餐饮评价",detail:"食堂种类丰富，山西面食是特色，价格适中",color:"#9c89b8"},{name:"总体评价",detail:"学校处于快速发展期，是一所值得选择的应用型本科院校",color:"#9c89b8"}]},
+{name:"📋 招生录取",color:"#457b9d",desc:"各省录取分数参考 · 招生政策 · 录取规则",children:[{name:"招生省份",detail:"面向山西/河南/河北/安徽/陕西/甘肃/内蒙古/黑龙江等27个省市",color:"#457b9d"},{name:"2025招生人数",detail:"2522人（27个专业）",color:"#457b9d"},{name:"录取批次",detail:"本科二批（部分省份合并为本科批）",color:"#457b9d"},{name:"录取规则",detail:"分数优先、遵循志愿，无专业级差",color:"#457b9d"},{name:"调档比例",detail:"原则上控制在105%以内",color:"#457b9d"},{name:"加分政策",detail:"承认各省教育主管部门规定的加分政策",color:"#457b9d"},{name:"外语要求",detail:"英语专业要求英语单科成绩不低于90分（满分150分）",color:"#457b9d"},{name:"身体要求",detail:"航空服务艺术与管理专业有身高/视力等身体条件要求",color:"#457b9d"},{name:"志愿填报",detail:"建议第一志愿填报以增加录取概率",color:"#457b9d"},{name:"录取查询",detail:"可通过学校官网和各省教育考试院查询录取结果",color:"#457b9d"},{name:"新生报到",detail:"通常在9月初报到，具体以录取通知书为准",color:"#457b9d"},{name:"入学资格复查",detail:"新生入学后进行资格复查，合格者注册学籍",color:"#457b9d"}]},
+{name:"🌍 国际教育",color:"#2a9d8f",desc:"国际交流项目 · 留学服务 · 合作办学",children:[{name:"本硕连读项目",detail:"与澳大利亚、英国、美国等合作院校开展本硕连读",color:"#2a9d8f"},{name:"交换生项目",detail:"与多所国际院校开展学生交换项目",color:"#2a9d8f"},{name:"短期访学",detail:"寒暑假短期海外访学和文化交流",color:"#2a9d8f"},{name:"语言培训",detail:"提供雅思/托福等语言考试培训课程",color:"#2a9d8f"},{name:"留学咨询",detail:"国际交流与继续教育学院提供留学规划与申请指导",color:"#2a9d8f"},{name:"来华留学",detail:"招收外国留学生来校学习",color:"#2a9d8f"},{name:"中外合作办学",detail:"探索与国外高校合作举办本科教育项目",color:"#2a9d8f"},{name:"国际课程",detail:"部分专业引入国际课程体系和教学方法",color:"#2a9d8f"},{name:"教师海外研修",detail:"选派教师赴海外合作院校进行研修和学术交流",color:"#2a9d8f"},{name:"外教引进",detail:"聘请外籍教师来校任教",color:"#2a9d8f"},{name:"阳光留学基地",detail:"教育部阳光留学示范基地",color:"#2a9d8f"}]},
+{name:"🔧 专业详解",color:"#457b9d",desc:"30个专业 · 培养方向 · 就业前景",children:[{name:"机械设计制造及其自动化",detail:"省级一流专业 · 培养机械设计/制造/自动化控制复合型人才 · 就业面向装备制造/汽车/航空航天",color:"#457b9d"},{name:"智能制造工程",detail:"新兴工科专业 · 学费16080元/年 · 培养智能制造系统设计/集成/运维人才 · 就业面向智能工厂/工业互联网",color:"#457b9d"},{name:"车辆工程",detail:"培养汽车设计/制造/检测人才 · 就业面向汽车制造/新能源汽车企业",color:"#457b9d"},{name:"新能源汽车工程",detail:"培养新能源整车/电池/电驱动系统设计人才 · 就业面向新能源汽车/储能企业",color:"#457b9d"},{name:"电气工程及其自动化",detail:"培养电力系统/电气控制/自动化人才 · 就业面向国家电网/发电企业/制造业",color:"#457b9d"},{name:"自动化",detail:"培养工业自动化/过程控制/智能控制人才 · 就业面向制造业/自动化企业",color:"#457b9d"},{name:"计算机科学与技术",detail:"培养软件开发/系统设计/数据分析人才 · 就业面向互联网/IT企业/金融机构",color:"#457b9d"},{name:"电子与计算机工程",detail:"软科全国第9名 ⭐ · 王牌专业 · 培养软硬件协同设计人才 · 就业面向电子信息/半导体/通信",color:"#457b9d"},{name:"虚拟现实技术",detail:"软科全国第18名 ⭐ · 培养VR/AR/MR开发人才 · 就业面向游戏/影视/仿真/教育",color:"#457b9d"},{name:"互联网金融",detail:"软科全国第32名 ⭐ · 学费14800元/年 · 培养金融科技/区块链/量化分析人才",color:"#457b9d"},{name:"法学",detail:"学费14800元/年 · 培养法律实务人才 · 可参加国家统一法律职业资格考试",color:"#457b9d"},{name:"英语",detail:"培养英语翻译/国际商务/英语教育人才 · 2025年与山西大学外国语学院共建",color:"#457b9d"},{name:"财务管理",detail:"培养会计核算/财务分析/税务筹划人才 · 就业面向企业/会计师事务所/金融机构",color:"#457b9d"},{name:"审计学",detail:"培养审计/内控/风险管理人才 · 就业面向会计师事务所/审计机关/企业内审",color:"#457b9d"},{name:"工商管理",detail:"培养企业管理/市场营销/人力资源人才 · 就业面向各类企业管理部门",color:"#457b9d"},{name:"环境工程",detail:"培养环境污染治理/环境监测/环境影响评价人才 · 就业面向环保企业/政府环保部门",color:"#457b9d"},{name:"材料科学与工程",detail:"培养新材料研发/材料检测分析人才 · 全国大学生金相技能大赛获奖",color:"#457b9d"},{name:"航空服务艺术与管理",detail:"培养航空服务/机场管理人才 · 就业面向航空公司/机场/高铁",color:"#457b9d"},{name:"通信工程",detail:"培养通信系统设计/网络规划/信号处理人才 · 就业面向运营商/通信设备商",color:"#457b9d"},{name:"物联网工程",detail:"培养物联网系统设计/嵌入式开发/传感器应用人才 · 就业面向智能家居/智慧城市",color:"#457b9d"},{name:"智能科学与技术",detail:"培养人工智能/机器学习/智能系统设计人才 · 就业面向AI/互联网/智能制造",color:"#457b9d"},{name:"区块链工程",detail:"培养区块链技术/分布式应用/智能合约开发人才 · 就业面向金融科技/Web3",color:"#457b9d"},{name:"数字媒体技术",detail:"培养数字媒体设计/交互设计/游戏开发人才 · 就业面向互联网/游戏/影视",color:"#457b9d"},{name:"跨境电子商务",detail:"培养跨境电商运营/国际贸易/海外营销人才 · 就业面向跨境电商平台/外贸企业",color:"#457b9d"},{name:"金融工程",detail:"学费15080元/年 · 培养金融产品设计/风险管理/量化投资人才",color:"#457b9d"},{name:"市场营销",detail:"培养市场策划/品牌管理/数字营销人才 · 就业面向各类企业营销部门",color:"#457b9d"},{name:"经济学",detail:"培养经济分析/政策研究/产业经济人才 · 就业面向政府/金融机构/研究机构",color:"#457b9d"},{name:"国际经济与贸易",detail:"培养国际贸易/国际商务/外贸实务人才 · 就业面向外贸企业/跨国公司",color:"#457b9d"},{name:"社会工作",detail:"培养社会服务/社区管理/社会组织管理人才 · 就业面向民政/社区/公益组织",color:"#457b9d"},{name:"音乐教育",detail:"培养音乐教育/音乐表演/音乐培训人才 · 就业面向学校/培训机构/文化单位",color:"#457b9d"}]},
+{name:"👥 校友风采",color:"#e76f51",desc:"优秀毕业生 · 14个节点",children:[{name:"李洋",detail:"就职于中化二建集团有限公司",color:"#e76f51"},{name:"杨雄",detail:"就职于江铃重型汽车有限公司",color:"#e76f51"},{name:"赵政廷",detail:"就职于中国重汽集团大同齿轮有限公司",color:"#e76f51"},{name:"杨昊",detail:"就职于山西煤炭运销集团能源投资开发有限公司",color:"#e76f51"},{name:"李鹏翀",detail:"就职于太原人才大市场股份有限公司",color:"#e76f51"},{name:"吴兰",detail:"优秀毕业生 · 2025年10月28日光荣亮相九三阅兵",color:"#e76f51"},{name:"王宏宇",detail:"信创与大数据学院优秀学生代表 · 新媒体创作骨干",color:"#e76f51"},{name:"武超逸",detail:"从校级竞赛到国家级领奖台，每一步都走得踏实而坚定",color:"#e76f51"},{name:"任立媛",detail:"艺术学院25级音乐教育专业 · 寒假返家乡社会实践获共青团灵石县委表扬",color:"#e76f51"},{name:"128宿舍",detail:"平嘉瑶/王娅芳/武俊瑞 · 材料与环境学院 · 2026年三人全部考研上岸",color:"#e76f51"},{name:"徐莉",detail:"辅导员 · 2026年5月获山西省第十届高校辅导员素质能力大赛三等奖",color:"#e76f51"},{name:"韩晓波",detail:"青年教师 · 2025年10月亮相山西省歌舞剧院《晋韵晋梦》音乐会",color:"#e76f51"},{name:"刘亚楠",detail:"艺术学院教师 · 与晋理双向奔赴，彼此成就",color:"#e76f51"},{name:"孙宁波",detail:"商学院金融经济系教师 · 与晋理共同成长",color:"#e76f51"}]}
+];
+
+let currentView='grid',currentParent=null,currentList=null,searchQuery='',crumbStack=[];
+
+function init(){
+  renderGrid();renderTags();
+  var s=document.getElementById('search');
+  s.addEventListener('input',function(e){
+    searchQuery=e.target.value.trim().toLowerCase();
+    var clr=document.getElementById('clearBtn');
+    if(searchQuery){clr.classList.add('show');performSearch()}
+    else{clr.classList.remove('show');if(currentParent!==null){showList(currentParent)}else{showGrid()}}
+  });
+  document.getElementById('backBtn').addEventListener('click',goBack);
+}
+function clearSearch(){document.getElementById('search').value='';searchQuery='';document.getElementById('clearBtn').classList.remove('show');document.getElementById('searchBadge').style.display='none';if(currentParent!==null){showList(currentParent)}else{showGrid()}}
+function renderTags(){
+  var row=document.getElementById('tagRow'),tags=['全部','概况','历史','院系','师资','教学','科研','排名','合作','招生','文化','设施','行政','荣誉','党建','标识','媒体','亮点','学费','宿舍','餐饮','交通','口碑','录取','国际','专业','校友'],h='';
+  for(var i=0;i<tags.length;i++)h+='<span class="tc'+(i===0?' on':'')+'" onclick="filterTag(\''+tags[i]+'\')">'+tags[i]+'</span>';
+  row.innerHTML=h;
+}
+function filterTag(tag){
+  var chips=document.querySelectorAll('.tc');for(var i=0;i<chips.length;i++)chips[i].classList.toggle('on',chips[i].textContent===tag);
+  if(tag==='全部'){showGrid();return}
+  var filtered=[],indexes=[];
+  for(var i=0;i<DATA.length;i++){var name=DATA[i].name.replace(/[^\u4e00-\u9fa5]/g,'');if(name.indexOf(tag)!==-1){filtered.push(DATA[i]);indexes.push(i)}}
+  if(filtered.length>0)renderGrid(filtered,indexes);else showGrid();
+}
+function renderGrid(data,indexes){
+  data=data||DATA;indexes=indexes||[];var grid=document.getElementById('catGrid'),h='';
+  for(var i=0;i<data.length;i++){var c=data[i],count=countNodes(c),realIdx=indexes.length>0?indexes[i]:i;
+    h+='<div class="cat-card anim-in" style="animation-delay:'+(i*0.03)+'s" onclick="showList('+realIdx+')"><div class="cbar" style="background:'+c.color+'"></div><div class="ci">'+c.name.slice(0,3)+'</div><div class="cn">'+c.name.slice(3)+'</div><div class="cc">'+count+' 个节点</div><div class="cd">'+c.desc+'</div></div>'}
+  grid.innerHTML=h;grid.classList.remove('hidden');document.getElementById('listView').classList.remove('show');document.getElementById('crumb').classList.remove('show');document.getElementById('backBtn').classList.remove('show');document.getElementById('empty').classList.remove('show');currentView='grid';currentParent=null;crumbStack=[];
+}
+function showGrid(){renderGrid();document.getElementById('searchBadge').style.display='none'}
+function showList(idx){var cat=DATA[idx];currentParent=idx;currentList=cat.children;renderList(cat.children,cat.name,cat.color);updateCrumb([cat.name]);document.getElementById('backBtn').classList.add('show');document.getElementById('catGrid').classList.add('hidden');document.getElementById('empty').classList.remove('show');document.getElementById('searchBadge').style.display='none';currentView='list'}
+function renderList(items,title,color){var list=document.getElementById('listView'),h='';for(var i=0;i<items.length;i++){var it=items[i],hasChildren=it.children&&it.children.length>0,dot=it.color||color;h+='<div class="li anim-in" style="animation-delay:'+(i*0.02)+'s" onclick="tapItem('+i+')"><div class="ld" style="background:'+dot+'"></div><div class="lii"><div class="lt">'+it.name+'</div>'+(it.detail?'<div class="ldd">'+it.detail.replace(/\n/g,' ')+'</div>':'')+'</div>'+(hasChildren?'<div class="la">›</div>':'')+'</div>'}list.innerHTML=h;list.classList.add('show')}
+function tapItem(i){var item=currentList[i];if(item.children&&item.children.length>0){currentList=item.children;renderList(item.children,item.name,item.color);updateCrumbAppend(item.name)}else{showSheet(item)}}
+function updateCrumb(items){crumbStack=items.slice();var c=document.getElementById('crumb');if(items.length===0){c.classList.remove('show');return}var h='';for(var i=0;i<items.length;i++){if(i>0)h+='<span class="sep">›</span>';h+='<span onclick="crumbNav('+i+')">'+items[i]+'</span>'}c.innerHTML=h;c.classList.add('show')}
+function updateCrumbAppend(item){crumbStack.push(item);updateCrumb(crumbStack)}
+function crumbNav(i){if(i===0&&crumbStack.length===1){goBack()}else if(i===0&&crumbStack.length>1){crumbStack=crumbStack.slice(0,1);currentList=DATA[currentParent].children;renderList(currentList,DATA[currentParent].name,DATA[currentParent].color);updateCrumb(crumbStack)}}
+function goBack(){if(crumbStack.length<=1){showGrid();document.getElementById('backBtn').classList.remove('show');document.getElementById('crumb').classList.remove('show');currentParent=null;currentList=null;crumbStack=[]}else{crumbStack.pop();if(crumbStack.length===0){showGrid();document.getElementById('backBtn').classList.remove('show');document.getElementById('crumb').classList.remove('show');currentParent=null;currentList=null}else if(crumbStack.length===1){currentList=DATA[currentParent].children;renderList(currentList,DATA[currentParent].name,DATA[currentParent].color);updateCrumb(crumbStack)}}}
+function performSearch(){
+  var results=[],q=searchQuery;function searchNodes(nodes,path){for(var i=0;i<nodes.length;i++){var n=nodes[i];if(n.name.toLowerCase().indexOf(q)!==-1||(n.detail&&n.detail.toLowerCase().indexOf(q)!==-1)){results.push({node:n,path:path.slice()})}if(n.children){searchNodes(n.children,path.concat([n.name]))}}}
+  for(var i=0;i<DATA.length;i++)searchNodes(DATA[i].children,[DATA[i].name]);
+  if(results.length===0){document.getElementById('catGrid').classList.add('hidden');document.getElementById('listView').classList.remove('show');document.getElementById('empty').classList.add('show');document.getElementById('backBtn').classList.remove('show');document.getElementById('crumb').classList.remove('show');document.getElementById('searchBadge').style.display='inline';document.getElementById('searchBadge').textContent='0 个结果';return}
+  document.getElementById('empty').classList.remove('show');document.getElementById('backBtn').classList.remove('show');document.getElementById('crumb').classList.remove('show');document.getElementById('searchBadge').style.display='inline';document.getElementById('searchBadge').textContent=results.length+' 个结果';
+  var list=document.getElementById('listView'),h='',esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),re=new RegExp('('+esc+')','gi');
+  for(var i=0;i<results.length;i++){var r=results[i],path=r.path.join(' › '),color=r.node.color||'#6c757d',name=r.node.name.replace(re,'<mark>$1</mark>'),detail=(r.node.detail||'').replace(re,'<mark>$1</mark>');path=path.replace(re,'<mark>$1</mark>');h+='<div class="li anim-in" style="animation-delay:'+(i*0.02)+'s" onclick="showSheetFromSearch('+i+')"><div class="ld" style="background:'+color+'"></div><div class="lii"><div class="lt">'+name+'</div>'+(detail?'<div class="ldd">'+detail+'</div>':'')+'<div class="lp">'+path+'</div></div></div>'}
+  list.innerHTML=h;list.classList.add('show');document.getElementById('catGrid').classList.add('hidden');window._searchResults=results;currentView='search';
+}
+function showSheetFromSearch(i){showSheet(window._searchResults[i].node)}
+function showSheet(item){document.getElementById('sBar').style.background=item.color||'#6c757d';document.getElementById('sName').textContent=item.name;document.getElementById('sTag').textContent=crumbStack.length>0?crumbStack.join(' › '):'';document.getElementById('sDesc').textContent=item.detail||'暂无详细描述';document.getElementById('overlay').classList.add('show');document.getElementById('sheet').classList.add('show')}
+function closeSheet(){document.getElementById('overlay').classList.remove('show');document.getElementById('sheet').classList.remove('show')}
+function countNodes(cat){var count=0;function walk(nodes){for(var i=0;i<nodes.length;i++){count++;if(nodes[i].children)walk(nodes[i].children)}}if(cat.children)walk(cat.children);return count}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
